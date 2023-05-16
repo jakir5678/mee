@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  }
+  .dropdown {
+  float: left;
+  overflow: hidden;
+  }
+  
+  .dropdown .dropbtn {
+  
+  
+  font-size: 25px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  }
+  
+  .navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+  }
+  
+  .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  }
+  
+  .dropdown-content a {
+  float: none;
+  color: black;
+  padding: 20px 40px;
+  text-decoration: none;
+  display: block;
+  
+  text-align: left;
+  }
+  
+  .dropdown-content a:hover {
+  background-color: #ddd;
+  }
+  
+  .dropdown:hover .dropdown-content {
+  display: block;
+  }
+  </style>
+  </head>
+  <body>
+  
+  <div class="navbar">
+  <a href="http://jakiralvina1.epizy.com/">Home</a>
+  <a href="#">News</a>
+  <div class="dropdown">
+    <button class="dropbtn">MANU 
+      <i class="fa fa-caret-down"></i>
+    </button>
+    <div class="dropdown-content">
+    
+     
+      <a href="http://jakiralvina1.epizy.com/alvina/"><div>ALVINA</div></a>
+      <a href="http://jakiralvina1.epizy.com/home-1/"><div>ALVINA</div></a>
+      <a href="http://jakiralvina1.epizy.com/love-for-alvina/"><div>LOVE FOR ALVINA</div></a>
+      <a href="http://jakiralvina1.epizy.com/good/"><div>GOOD</div></a>
+      <a href="http://jakiralvina1.epizy.com/my-account/"><div>MY BACKGROUND</div></a>
+      <a href="http://jakiralvina1.epizy.com/checkout/"><div>SONGS</div></a>
+      <a href="http://jakiralvina1.epizy.com/education/"><div>EDUCATION</div></a>
+      <a href="http://jakiralvina1.epizy.com/question/"><div>Quiz</div></a>
+      <a href="http://jakiralvina1.epizy.com/%e0%a6%aa%e0%a6%b0%e0%a6%bf%e0%a6%95%e0%a7%8d%e0%a6%b7%e0%a6%be/"><div>পরিক্ষা</div></a>
+      
+      
+      
+      
+    </div>
+  </div> 
+  
+  
+  </div></body></html></DOCTYPE>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Time and Date</title>
+  </head>
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+    @import url("https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css");
+    .font-fredoka { font-family: "Fredoka One", cursive; }
+  </style>
+  <body class="font-fredoka m-0">
+    <script type="module">
+      import {
+        html,
+        render,
+        useEffect,
+        useState
+      } from "https://unpkg.com/htm/preact/standalone.module.js";
+
+      const getDateLocaleString = (date = new Date()) =>
+        date.toLocaleString("en-US", {
+          day: "2-digit",
+          hour12: true,
+          month: "long",
+          weekday: "short",
+          year: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit"
+        });
+
+      /**
+       * Hook to get date and time information.
+       *
+       * @returns {[weekday: string, dayAndMonth: string, year: string, time: string]} Tuple of 4 elements with date information.
+       */
+      const useDateTimeTuple = () => {
+        const [dateLocaleString, setDateLocaleString] = useState(
+          getDateLocaleString(new Date())
+        );
+
+        useEffect(() => {
+          const interval = setInterval(() => {
+            setDateLocaleString(getDateLocaleString(new Date()));
+          }, 500);
+          return () => clearInterval(interval);
+        }, []);
+
+        return dateLocaleString.split(", ");
+      };
+
+      /**
+       * DateTime component.
+       */
+      const DateTime = () => {
+        const [weekday, dayAndMonth, year, time] = useDateTimeTuple();
+
+        return html`
+          <main class="flex h-screen items-center justify-center w-screen">
+            <span class="m-2 text-blue-700 text-7xl">${time}</span>
+            <span class="m-2 text-red-400 text-5xl uppercase">${weekday}</span>
+            <span class="m-2 text-red-400 text-2xl uppercase">
+              ${dayAndMonth}, ${year}
+            </span>
+          </main>
+        `;
+      };
+
+      render(html`<${DateTime} />`, document.body);
+    </script>
+  </body>
+</html>
